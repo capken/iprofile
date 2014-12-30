@@ -38,6 +38,11 @@ angular.module('iprofile.controllers', [])
       $scope.updateModal.hide();
     };
 
+    $scope.saveProfile = function() {
+      $scope.profile = $scope.newProfile;
+      $scope.updateModal.hide();
+    };
+
     $ionicModal.fromTemplateUrl('templates/share.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -46,12 +51,23 @@ angular.module('iprofile.controllers', [])
     });
 
     $scope.openShareModal = function() {
+      $scope.profileURL = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' + 
+        encodeURIComponent(JSON.stringify($scope.profile));
+      console.log($scope.profileURL);
       $scope.shareModal.show();
     };
 
     $scope.closeShareModal = function() {
       $scope.shareModal.hide();
     };
+
+    $scope.formatTel = function(tel) {
+      if(angular.isDefined(tel)) {
+        return tel.replace(/(1\d{2})(\d{4})(\d{4})/, "$1 $2 $3");
+      } else {
+        return null;
+      }
+    }
 
   }
 );
