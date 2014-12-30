@@ -1,0 +1,37 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <button class="button button-clear button-positive" ng-click="">Save</button>
+    <h1 class="title">Update Profile</h1>
+    <button class="button button-clear" ng-click="closeUpdateModal()">Cancel</button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list list-inset">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Name</span>
+        <input type="text" ng-model="newProfile.name">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Email</span>
+        <input type="text" ng-model="newProfile.email">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Tel</span>
+        <input type="text" ng-model="newProfile.tel">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Vehicle Plates</span>
+        <input type="text" ng-model="newProfile.plates">
+      </label>
+    </div>
+    <div class="list list-inset">
+      <div class="item item-divider">
+        Auth Method
+      </div>
+      <label class="item item-radio" ng-repeat="method in authMethods">
+        <input type="radio" name="auth" ng-value="method.value" ng-model="newProfile.auth">
+        <div class="item-content">{{method.name}}</div>
+        <i class="radio-icon ion-checkmark-circled"></i>
+      </label>
+    </div>
+  </ion-content>
+</ion-modal-view>
