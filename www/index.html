@@ -17,11 +17,12 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
-    <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/app.js"></script>
   </head>
   <body ng-app="iprofile" ng-controller="MainCtrl">
     <ion-header-bar class="bar-light" >
@@ -30,7 +31,7 @@
       <button class="button button-icon icon ion-gear-a" ng-click="openUpdateModal()"></button>
     </ion-header-bar>
     <ion-content>
-      <div class="list">
+      <div class="list" ng-show='auth.passed'>
         <div class="item item-icon-left">
           <i class="icon ion-person"></i>{{profile.name}}
         </div>

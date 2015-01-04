@@ -1,21 +1,24 @@
 angular.module('iprofile.controllers', [])
 
 .controller('MainCtrl', 
-  function($scope, $ionicModal) {
-    $scope.profile = {
-      name: 'Steven Huang',
-      email: 'steven.huang@gmail.com',
-      tel: '13912345678',
-      plates: '沪A6U666'
-    };
+  function($scope, $ionicModal, $ionicPopup, $cordovaTouchID, $ionicPlatform) {
 
-    $scope.newProfile = {
-      name: $scope.profile.name,
-      email: $scope.profile.email,
-      tel: $scope.profile.tel,
-      plates: $scope.profile.plates,
-      auth: 'pin'
-    };
+    var initProfile = function() {
+      $scope.profile = {
+        name: 'Steven Huang',
+        email: 'steven.huang@gmail.com',
+        tel: '13912345678',
+        plates: '沪A6U666'
+      };
+
+      $scope.newProfile = {
+        name: $scope.profile.name,
+        email: $scope.profile.email,
+        tel: $scope.profile.tel,
+        plates: $scope.profile.plates,
+        auth: 'pin'
+      };
+    }
 
     $scope.authMethods = [
       { name: 'Touch ID', value: 'tid' },
@@ -68,6 +71,51 @@ angular.module('iprofile.controllers', [])
         return null;
       }
     }
+
+    $scope.auth = {
+      passed: false
+    }
+
+    var showAuthPopup = function() {
+      $scope.auth.pin = '';
+      var authPopup = $ionicPopup.show({
+        template: '<input id="password" autofocus type="password" ng-model="auth.pin">',
+        title: 'Enter your password',
+        scope: $scope,
+        buttons: [
+          {
+            text: 'OK',
+            type: 'button-positive',
+            onTap: function(e) {
+              return $scope.auth.pin;
+            }
+          }
+        ]
+      });
+
+      authPopup.then(function(res) {
+        console.log('res => [' + res + ']');
+        if($scope.auth.pin === '123456') {
+          $scope.auth.passed = true;
+          initProfile();
+        } else {
+          showAuthPopup();
+        }
+      });
+    }
+
+    $ionicPlatform.ready(function() {
+      $cordovaTouchID.checkSupport().then(function() {
+        $cordovaTouchID.authenticate("text").then(function() {
+          $scope.auth.passed = true;
+          initProfile();
+        }, function () {
+          showAuthPopup();
+        });
+      }, function (error) {
+        showAuthPopup();
+      });
+    });
 
   }
 );
