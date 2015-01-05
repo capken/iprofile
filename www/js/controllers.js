@@ -106,7 +106,7 @@ angular.module('iprofile.controllers', [])
 
     $ionicPlatform.ready(function() {
       $cordovaTouchID.checkSupport().then(function() {
-        $cordovaTouchID.authenticate("text").then(function() {
+        $cordovaTouchID.authenticate("Please use your touch ID").then(function() {
           $scope.auth.passed = true;
           initProfile();
         }, function () {
