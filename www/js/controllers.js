@@ -58,7 +58,9 @@ angular.module('iprofile.controllers', [])
       //  encodeURIComponent(JSON.stringify($scope.profile));
       $scope.profileURL = 'http://tool.oschina.net/action/qrcode/generate?data=' +
         encodeURIComponent(JSON.stringify($scope.profile)) +
-        '&output=image%2Fpng&error=M&type=0&margin=0&size=4';
+        '&output=image%2Fpng&error=M&type=0&margin=10&size=4';
+
+      $scope.imageStyle = 'show';
       
       console.log($scope.profileURL);
       $scope.shareModal.show();
@@ -66,6 +68,7 @@ angular.module('iprofile.controllers', [])
 
     $scope.closeShareModal = function() {
       $scope.shareModal.hide();
+      $scope.imageStyle = '';
     };
 
     $scope.formatTel = function(tel) {
