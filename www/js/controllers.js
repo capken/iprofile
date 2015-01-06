@@ -54,8 +54,12 @@ angular.module('iprofile.controllers', [])
     });
 
     $scope.openShareModal = function() {
-      $scope.profileURL = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' + 
-        encodeURIComponent(JSON.stringify($scope.profile));
+      //$scope.profileURL = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' + 
+      //  encodeURIComponent(JSON.stringify($scope.profile));
+      $scope.profileURL = 'http://tool.oschina.net/action/qrcode/generate?data=' +
+        encodeURIComponent(JSON.stringify($scope.profile)) +
+        '&output=image%2Fpng&error=M&type=0&margin=0&size=4';
+      
       console.log($scope.profileURL);
       $scope.shareModal.show();
     };
